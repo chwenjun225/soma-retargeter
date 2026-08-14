@@ -5,6 +5,7 @@ from enum import IntEnum, auto
 
 import soma_retargeter.utils.io_utils as io_utils
 import soma_retargeter.assets.usd as usd_utils
+from soma_retargeter.targets import TargetType, get_target
 
 
 class SourceType(IntEnum):
@@ -12,18 +13,12 @@ class SourceType(IntEnum):
     SOMA = auto()
 
 
-class TargetType(IntEnum):
-    """Enumeration of supported target model types."""
-    UNITREE_G1 = auto()
-
 _SOURCE_TYPE_TO_STR = {
     SourceType.SOMA : "soma"
 }
 _STR_TO_SOURCE_TYPE = {s : t for t, s in _SOURCE_TYPE_TO_STR.items()}
 
-_TARGET_TYPE_TO_STR = {
-    TargetType.UNITREE_G1 : "unitree_g1"
-}
+_TARGET_TYPE_TO_STR = {target: get_target(target).name for target in TargetType}
 _STR_TO_TARGET_TYPE = {s : t for t, s in _TARGET_TYPE_TO_STR.items()}
 
 
@@ -131,14 +126,6 @@ def get_retargeter_config(source: SourceType, target: TargetType) -> dict:
     Raises:
         ValueError: If the source or target type is not supported.
     """
-    if target != TargetType.UNITREE_G1:
-        raise ValueError(f"Unknown target type [{target}].")
-
-    if source == SourceType.SOMA:
-        filename = 'soma_to_g1_retargeter_config.json'
-    else:
-        raise ValueError(f"Unknown source type [{source}] for target [{target}].")
-
-    return io_utils.load_json(
-        io_utils.get_config_file('unitree_g1', filename)
-    )
+    target_definition = get_target(target)
+    source_name = get_source_str_from_type(source)
+    return io_utils.load_json(target_definition.retargeter_config_path(source_name))

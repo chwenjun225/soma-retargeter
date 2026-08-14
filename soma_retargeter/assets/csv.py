@@ -83,6 +83,39 @@ class UnitreeG129DOF_CSVConfig:
         return row
 
 
+class GR1T232DOF_CSVConfig(UnitreeG129DOF_CSVConfig):
+    """CSV layout for GR1T2 in CIBO's canonical MuJoCo joint order."""
+
+    def __init__(self) -> None:
+        from soma_retargeter.targets import get_target
+
+        target = get_target("gr1t2")
+        self.name = "fourier_gr1t2_32dof"
+        self.csv_header = [
+            "Frame",
+            "root_translateX", "root_translateY", "root_translateZ",
+            "root_rotateX", "root_rotateY", "root_rotateZ",
+            *(f"{joint_name}_dof" for joint_name in target.output_joint_order()),
+        ]
+
+
+_CSV_CONFIG_FACTORIES = {
+    "unitree_g1": UnitreeG129DOF_CSVConfig,
+    "gr1t2": GR1T232DOF_CSVConfig,
+}
+
+
+def get_csv_config(target: str) -> RobotCSVConfig:
+    """Return the registered CSV serializer for a robot target."""
+
+    try:
+        factory = _CSV_CONFIG_FACTORIES[target]
+    except KeyError:
+        allowed = ", ".join(sorted(_CSV_CONFIG_FACTORIES))
+        raise ValueError(f"Unknown CSV target [{target}]. Allowed values: {allowed}") from None
+    return factory()
+
+
 def load_csv(file_path: str, fps: float = 120.0, csv_config: RobotCSVConfig = UnitreeG129DOF_CSVConfig()) -> CSVAnimationBuffer:
     """
     Load a robot motion CSV file into a ``CSVAnimationBuffer``.
