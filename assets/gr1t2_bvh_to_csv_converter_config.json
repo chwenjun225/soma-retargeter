@@ -1,0 +1,9 @@
+{
+    "import_folder": "/home/tranvantuan/projects/cibo/data/bones_seed_sample/extracted/soma_uniform",
+    "export_folder": "/home/tranvantuan/projects/cibo/data/processed/bones_seed/gr1t2/csv",
+    "batch_size": 100,
+    "retargeter": "Newton",
+    "retarget_source": "soma",
+    "retarget_target": "gr1t2",
+    "retarget_source_facing_direction": "Mujoco"
+}

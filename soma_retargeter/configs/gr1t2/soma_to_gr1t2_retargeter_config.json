@@ -1,0 +1,59 @@
+{
+  "model_path": "${CIBO_ROOT}/cibo/contents/assets/robots/humanoid/gr1t2/mjcf/gr1t2_motion_32dof.xml",
+  "model_height": 1.65,
+  "num_actuated_dofs": 32,
+  "joint_names": [
+    "joint_left_hip_roll", "joint_left_hip_yaw", "joint_left_hip_pitch",
+    "joint_left_knee_pitch", "joint_left_ankle_pitch", "joint_left_ankle_roll",
+    "joint_right_hip_roll", "joint_right_hip_yaw", "joint_right_hip_pitch",
+    "joint_right_knee_pitch", "joint_right_ankle_pitch", "joint_right_ankle_roll",
+    "joint_waist_yaw", "joint_waist_pitch", "joint_waist_roll",
+    "joint_head_pitch", "joint_head_roll", "joint_head_yaw",
+    "joint_left_shoulder_pitch", "joint_left_shoulder_roll", "joint_left_shoulder_yaw",
+    "joint_left_elbow_pitch", "joint_left_wrist_yaw", "joint_left_wrist_roll",
+    "joint_left_wrist_pitch", "joint_right_shoulder_pitch", "joint_right_shoulder_roll",
+    "joint_right_shoulder_yaw", "joint_right_elbow_pitch", "joint_right_wrist_yaw",
+    "joint_right_wrist_roll", "joint_right_wrist_pitch"
+  ],
+  "required_bodies": [
+    "base", "link_torso", "link_left_thigh_roll", "link_left_shank_pitch",
+    "link_left_foot_roll", "link_right_thigh_roll", "link_right_shank_pitch",
+    "link_right_foot_roll", "link_left_upper_arm_roll", "link_left_lower_arm_pitch",
+    "link_left_hand_pitch", "link_right_upper_arm_roll", "link_right_lower_arm_pitch",
+    "link_right_hand_pitch"
+  ],
+  "initialization_pose": "soma/soma_zero_frame0.bvh",
+  "num_initialization_frames": 10,
+  "num_stabilization_frames": 5,
+  "human_robot_scaler_config": "gr1t2/soma_to_gr1t2_scaler_config.json",
+  "feet_stabilizer_config": "gr1t2/gr1t2_feet_stabilizer_config.json",
+  "ik_iterations": 24,
+  "joint_limit_weight": 10.0,
+  "smooth_joint_filter_weight": 5.5,
+  "collision_weight": 0.0,
+  "enable_post_processing": false,
+  "smooth_joint_filter_objective_body_masks": {
+    "link_left_upper_arm_pitch": 0.1,
+    "link_left_upper_arm_roll": 1.0,
+    "link_left_upper_arm_yaw": 0.3,
+    "link_right_upper_arm_pitch": 0.1,
+    "link_right_upper_arm_roll": 1.0,
+    "link_right_upper_arm_yaw": 0.3
+  },
+  "ik_map": {
+    "Hips": {"t_body": "base", "r_body": "base", "t_weight": 30.0, "r_weight": 2.0},
+    "Chest": {"t_body": "link_torso", "r_body": "link_torso", "t_weight": 0.7, "r_weight": 0.7},
+    "LeftArm": {"t_body": "link_left_upper_arm_roll", "r_body": "link_left_upper_arm_roll", "t_weight": 1.5, "r_weight": 0.15},
+    "LeftForeArm": {"t_body": "link_left_lower_arm_pitch", "r_body": "link_left_lower_arm_pitch", "t_weight": 1.0, "r_weight": 1.0},
+    "LeftHand": {"t_body": "link_left_hand_pitch", "r_body": "link_left_hand_pitch", "t_weight": 2.0, "r_weight": 1.2},
+    "RightArm": {"t_body": "link_right_upper_arm_roll", "r_body": "link_right_upper_arm_roll", "t_weight": 1.5, "r_weight": 0.15},
+    "RightForeArm": {"t_body": "link_right_lower_arm_pitch", "r_body": "link_right_lower_arm_pitch", "t_weight": 1.0, "r_weight": 1.0},
+    "RightHand": {"t_body": "link_right_hand_pitch", "r_body": "link_right_hand_pitch", "t_weight": 2.0, "r_weight": 1.2},
+    "LeftLeg": {"t_body": "link_left_thigh_roll", "r_body": "link_left_thigh_roll", "t_weight": 1.5, "r_weight": 0.15},
+    "LeftShin": {"t_body": "link_left_shank_pitch", "r_body": "link_left_shank_pitch", "t_weight": 1.0, "r_weight": 1.0},
+    "LeftFoot": {"t_body": "link_left_foot_roll", "r_body": "link_left_foot_roll", "t_weight": 30.0, "r_weight": 2.0},
+    "RightLeg": {"t_body": "link_right_thigh_roll", "r_body": "link_right_thigh_roll", "t_weight": 1.5, "r_weight": 0.15},
+    "RightShin": {"t_body": "link_right_shank_pitch", "r_body": "link_right_shank_pitch", "t_weight": 1.0, "r_weight": 1.0},
+    "RightFoot": {"t_body": "link_right_foot_roll", "r_body": "link_right_foot_roll", "t_weight": 30.0, "r_weight": 2.0}
+  }
+}
