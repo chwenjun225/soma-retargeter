@@ -1,5 +1,5 @@
 {
-  "model_path": "/home/tranvantuan/projects/cibo/cibo/contents/assets/robots/humanoid/gr1t2/mjcf/gr1t2_fourier_hand_6dof.xml",
+  "model_path": "/home/tranvantuan/projects/cibo/cibo/contents/assets/robots/humanoid/gr1t2/mjcf/gr1t2_fourier_hand_6dof_32dof.xml",
   "model_height": 1.65,
   "num_actuated_dofs": 32,
   "joint_names": [
@@ -38,7 +38,6 @@
   ],
   "required_bodies": [
     "base_link",
-    "torso_link",
     "left_thigh_roll_link",
     "left_shank_pitch_link",
     "left_foot_roll_link",
