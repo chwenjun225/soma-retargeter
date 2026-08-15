@@ -1,6 +1,6 @@
 {
   "robot_type": "gr1t2",
-  "model_path": "${CIBO_ROOT}/cibo/contents/assets/robots/humanoid/gr1t2/mjcf/gr1t2_fourier_hand_6dof.xml",
+  "model_path": "/home/tranvantuan/projects/cibo/cibo/contents/assets/robots/humanoid/gr1t2/mjcf/gr1t2_fourier_hand_6dof.xml",
   "num_actuated_dofs": 32,
   "joint_names": [
     "left_hip_roll_joint",
