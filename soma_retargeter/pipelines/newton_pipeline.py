@@ -70,9 +70,9 @@ class NewtonPipeline:
         self.joint_limit_clamper = None
 
         if self.target_type in (
-            pipeline_utils.TargetType.UNITREE_G1,
-            pipeline_utils.TargetType.GR1T2,
-        ):
+                pipeline_utils.TargetType.UNITREE_G1, 
+                pipeline_utils.TargetType.GR1T2, 
+            ):
             self.robot_builder = pipeline_utils.build_and_validate_robot(
                 self.target_type, retargeter_config)
 

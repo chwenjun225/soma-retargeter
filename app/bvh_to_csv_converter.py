@@ -67,8 +67,17 @@ class Viewer:
         target_type = pipeline_utils.get_target_type_from_str(target_name)
         target_config = pipeline_utils.get_retargeter_config(
             pipeline_utils.SourceType.SOMA, target_type)
+        self.target_name = target_name
+        self.target_model_path = pipeline_utils.resolve_model_path(
+            target_type, target_config)
         robot_builder = pipeline_utils.build_and_validate_robot(
             target_type, target_config)
+        self.target_joint_order = [
+            label.split("/")[-1]
+            for label, joint_type in zip(
+                robot_builder.joint_label, robot_builder.joint_type)
+            if joint_type == newton.JointType.REVOLUTE
+        ]
         self.csv_config = csv_utils.get_csv_config(target_name)
         
         self.num_robots = 1
@@ -127,17 +136,26 @@ class Viewer:
         self.compute_playback_total_time()
 
     def compute_playback_total_time(self):
-        bvh_max_time = 0.0
+        bvh_durations = []
         for buffer in self.animation_buffers:
             if buffer is not None:
-                bvh_max_time = max(bvh_max_time, buffer.num_frames * (1 / buffer.sample_rate))
+                bvh_durations.append(
+                    max(0.0, (buffer.num_frames - 1) / buffer.sample_rate))
         
-        csv_max_time = 0.0
+        csv_durations = []
         for buffer in self.robot_csv_animation_buffers:
             if buffer is not None:
-                csv_max_time = max(csv_max_time, buffer.num_frames * (1 / buffer.sample_rate))
+                csv_durations.append(
+                    max(0.0, (buffer.num_frames - 1) / buffer.sample_rate))
 
-        self.playback_total_time = max(bvh_max_time, csv_max_time)
+        bvh_max_time = max(bvh_durations, default=0.0)
+        csv_max_time = max(csv_durations, default=0.0)
+        # When both representations are visible, play only their common time
+        # interval. Both buffers are sampled from this one timestamp below.
+        if bvh_durations and csv_durations:
+            self.playback_total_time = min(bvh_max_time, csv_max_time)
+        else:
+            self.playback_total_time = max(bvh_max_time, csv_max_time)
         self.playback_time = wp.clamp(self.playback_time, 0.0, self.playback_total_time)
 
     def update_robot_states(self):
@@ -352,12 +370,17 @@ class Viewer:
             if ui.button("Reset"):
                 self.robot_offsets = [wp.transform(wp.vec3(0.0, i - (self.num_robots - 1) / 2.0, 0.0), wp.quat_identity()) for i in range(self.num_robots)]
                 self.animation_offsets = [wp.transform_identity()] * len(self.skeleton_instances)
+
+        if ui.collapsing_header("Target Metadata"):
+            ui.text(f"Target: {self.target_name}")
+            ui.text_wrapped(f"MJCF: {self.target_model_path}")
+            ui.text_wrapped(f"joint_q[7:]: {', '.join(self.target_joint_order)}")
         ui.end()
 
     def ui_playback_controls(self, ui):
         viewport = ui.get_main_viewport()
         
-        panel_height = 105
+        panel_height = 125
         panel_width = viewport.size.x - 2 * (2 * _UI_NEWTON_PANEL_MARGIN + _UI_NEWTON_PANEL_WIDTH)
         
         ui.set_next_window_pos(ui.ImVec2(_UI_NEWTON_PANEL_WIDTH + _UI_NEWTON_PANEL_MARGIN, viewport.size.y - _UI_NEWTON_PANEL_MARGIN - panel_height))
@@ -380,6 +403,21 @@ class Viewer:
             self.playback_time = wp.clamp(new_time, 0.0, self.playback_total_time)
         ui.same_line()
         ui.text_colored(ui.ImVec4(0.6, 0.8, 1.0, 1.0), f"{self.playback_total_time:.2f}s")
+
+        source_frame = "-"
+        if self.animation_buffers:
+            source_frame = str(min(
+                int(self.playback_time * self.animation_buffers[0].sample_rate),
+                self.animation_buffers[0].num_frames - 1))
+        target_frame = "-"
+        if self.robot_csv_animation_buffers[0] is not None:
+            target_buffer = self.robot_csv_animation_buffers[0]
+            target_frame = str(min(
+                int(self.playback_time * target_buffer.sample_rate),
+                target_buffer.num_frames - 1))
+        ui.text(
+            f"Synchronized t={self.playback_time:.6f}s | "
+            f"SOMA frame={source_frame} | GR1T2 frame={target_frame}")
         
         self.is_playing = not ui.button("Pause") if self.is_playing else ui.button("Play ")
         ui.same_line()
