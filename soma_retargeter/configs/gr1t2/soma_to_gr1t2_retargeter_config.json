@@ -3,24 +3,54 @@
   "model_height": 1.65,
   "num_actuated_dofs": 32,
   "joint_names": [
-    "joint_left_hip_roll", "joint_left_hip_yaw", "joint_left_hip_pitch",
-    "joint_left_knee_pitch", "joint_left_ankle_pitch", "joint_left_ankle_roll",
-    "joint_right_hip_roll", "joint_right_hip_yaw", "joint_right_hip_pitch",
-    "joint_right_knee_pitch", "joint_right_ankle_pitch", "joint_right_ankle_roll",
-    "joint_waist_yaw", "joint_waist_pitch", "joint_waist_roll",
-    "joint_head_pitch", "joint_head_roll", "joint_head_yaw",
-    "joint_left_shoulder_pitch", "joint_left_shoulder_roll", "joint_left_shoulder_yaw",
-    "joint_left_elbow_pitch", "joint_left_wrist_yaw", "joint_left_wrist_roll",
-    "joint_left_wrist_pitch", "joint_right_shoulder_pitch", "joint_right_shoulder_roll",
-    "joint_right_shoulder_yaw", "joint_right_elbow_pitch", "joint_right_wrist_yaw",
-    "joint_right_wrist_roll", "joint_right_wrist_pitch"
+    "left_hip_roll_joint",
+    "left_hip_yaw_joint",
+    "left_hip_pitch_joint",
+    "left_knee_pitch_joint",
+    "left_ankle_pitch_joint",
+    "left_ankle_roll_joint",
+    "right_hip_roll_joint",
+    "right_hip_yaw_joint",
+    "right_hip_pitch_joint",
+    "right_knee_pitch_joint",
+    "right_ankle_pitch_joint",
+    "right_ankle_roll_joint",
+    "waist_yaw_joint",
+    "waist_pitch_joint",
+    "waist_roll_joint",
+    "head_pitch_joint",
+    "head_roll_joint",
+    "head_yaw_joint",
+    "left_shoulder_pitch_joint",
+    "left_shoulder_roll_joint",
+    "left_shoulder_yaw_joint",
+    "left_elbow_pitch_joint",
+    "left_wrist_yaw_joint",
+    "left_wrist_roll_joint",
+    "left_wrist_pitch_joint",
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_pitch_joint",
+    "right_wrist_yaw_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_pitch_joint"
   ],
   "required_bodies": [
-    "base", "link_torso", "link_left_thigh_roll", "link_left_shank_pitch",
-    "link_left_foot_roll", "link_right_thigh_roll", "link_right_shank_pitch",
-    "link_right_foot_roll", "link_left_upper_arm_roll", "link_left_lower_arm_pitch",
-    "link_left_hand_pitch", "link_right_upper_arm_roll", "link_right_lower_arm_pitch",
-    "link_right_hand_pitch"
+    "base_link",
+    "torso_link",
+    "left_thigh_roll_link",
+    "left_shank_pitch_link",
+    "left_foot_roll_link",
+    "right_thigh_roll_link",
+    "right_shank_pitch_link",
+    "right_foot_roll_link",
+    "left_upper_arm_roll_link",
+    "left_lower_arm_pitch_link",
+    "left_hand_pitch_link",
+    "right_upper_arm_roll_link",
+    "right_lower_arm_pitch_link",
+    "right_hand_pitch_link"
   ],
   "initialization_pose": "soma/soma_zero_frame0.bvh",
   "num_initialization_frames": 10,
@@ -41,19 +71,89 @@
     "link_right_upper_arm_yaw": 0.3
   },
   "ik_map": {
-    "Hips": {"t_body": "base", "r_body": "base", "t_weight": 30.0, "r_weight": 2.0},
-    "Chest": {"t_body": "link_torso", "r_body": "link_torso", "t_weight": 0.7, "r_weight": 0.7},
-    "LeftArm": {"t_body": "link_left_upper_arm_roll", "r_body": "link_left_upper_arm_roll", "t_weight": 1.5, "r_weight": 0.15},
-    "LeftForeArm": {"t_body": "link_left_lower_arm_pitch", "r_body": "link_left_lower_arm_pitch", "t_weight": 1.0, "r_weight": 1.0},
-    "LeftHand": {"t_body": "link_left_hand_pitch", "r_body": "link_left_hand_pitch", "t_weight": 2.0, "r_weight": 1.2},
-    "RightArm": {"t_body": "link_right_upper_arm_roll", "r_body": "link_right_upper_arm_roll", "t_weight": 1.5, "r_weight": 0.15},
-    "RightForeArm": {"t_body": "link_right_lower_arm_pitch", "r_body": "link_right_lower_arm_pitch", "t_weight": 1.0, "r_weight": 1.0},
-    "RightHand": {"t_body": "link_right_hand_pitch", "r_body": "link_right_hand_pitch", "t_weight": 2.0, "r_weight": 1.2},
-    "LeftLeg": {"t_body": "link_left_thigh_roll", "r_body": "link_left_thigh_roll", "t_weight": 1.5, "r_weight": 0.15},
-    "LeftShin": {"t_body": "link_left_shank_pitch", "r_body": "link_left_shank_pitch", "t_weight": 1.0, "r_weight": 1.0},
-    "LeftFoot": {"t_body": "link_left_foot_roll", "r_body": "link_left_foot_roll", "t_weight": 30.0, "r_weight": 2.0},
-    "RightLeg": {"t_body": "link_right_thigh_roll", "r_body": "link_right_thigh_roll", "t_weight": 1.5, "r_weight": 0.15},
-    "RightShin": {"t_body": "link_right_shank_pitch", "r_body": "link_right_shank_pitch", "t_weight": 1.0, "r_weight": 1.0},
-    "RightFoot": {"t_body": "link_right_foot_roll", "r_body": "link_right_foot_roll", "t_weight": 30.0, "r_weight": 2.0}
+    "Hips": {
+      "t_body": "base",
+      "r_body": "base",
+      "t_weight": 30.0,
+      "r_weight": 2.0
+    },
+    "Chest": {
+      "t_body": "link_torso",
+      "r_body": "link_torso",
+      "t_weight": 0.7,
+      "r_weight": 0.7
+    },
+    "LeftArm": {
+      "t_body": "link_left_upper_arm_roll",
+      "r_body": "link_left_upper_arm_roll",
+      "t_weight": 1.5,
+      "r_weight": 0.15
+    },
+    "LeftForeArm": {
+      "t_body": "link_left_lower_arm_pitch",
+      "r_body": "link_left_lower_arm_pitch",
+      "t_weight": 1.0,
+      "r_weight": 1.0
+    },
+    "LeftHand": {
+      "t_body": "link_left_hand_pitch",
+      "r_body": "link_left_hand_pitch",
+      "t_weight": 2.0,
+      "r_weight": 1.2
+    },
+    "RightArm": {
+      "t_body": "link_right_upper_arm_roll",
+      "r_body": "link_right_upper_arm_roll",
+      "t_weight": 1.5,
+      "r_weight": 0.15
+    },
+    "RightForeArm": {
+      "t_body": "link_right_lower_arm_pitch",
+      "r_body": "link_right_lower_arm_pitch",
+      "t_weight": 1.0,
+      "r_weight": 1.0
+    },
+    "RightHand": {
+      "t_body": "link_right_hand_pitch",
+      "r_body": "link_right_hand_pitch",
+      "t_weight": 2.0,
+      "r_weight": 1.2
+    },
+    "LeftLeg": {
+      "t_body": "link_left_thigh_roll",
+      "r_body": "link_left_thigh_roll",
+      "t_weight": 1.5,
+      "r_weight": 0.15
+    },
+    "LeftShin": {
+      "t_body": "link_left_shank_pitch",
+      "r_body": "link_left_shank_pitch",
+      "t_weight": 1.0,
+      "r_weight": 1.0
+    },
+    "LeftFoot": {
+      "t_body": "link_left_foot_roll",
+      "r_body": "link_left_foot_roll",
+      "t_weight": 30.0,
+      "r_weight": 2.0
+    },
+    "RightLeg": {
+      "t_body": "link_right_thigh_roll",
+      "r_body": "link_right_thigh_roll",
+      "t_weight": 1.5,
+      "r_weight": 0.15
+    },
+    "RightShin": {
+      "t_body": "link_right_shank_pitch",
+      "r_body": "link_right_shank_pitch",
+      "t_weight": 1.0,
+      "r_weight": 1.0
+    },
+    "RightFoot": {
+      "t_body": "link_right_foot_roll",
+      "r_body": "link_right_foot_roll",
+      "t_weight": 30.0,
+      "r_weight": 2.0
+    }
   }
 }
