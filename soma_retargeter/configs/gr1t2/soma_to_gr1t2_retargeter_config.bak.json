@@ -124,8 +124,8 @@
       "r_weight": 1.2
     },
     "LeftLeg": {
-      "t_body": "left_thigh_pitch_link",
-      "r_body": "left_thigh_pitch_link",
+      "t_body": "left_thigh_roll_link",
+      "r_body": "left_thigh_roll_link",
       "t_weight": 1.5,
       "r_weight": 0.15
     },
@@ -142,8 +142,8 @@
       "r_weight": 2.0
     },
     "RightLeg": {
-      "t_body": "right_thigh_pitch_link",
-      "r_body": "right_thigh_pitch_link",
+      "t_body": "right_thigh_roll_link",
+      "r_body": "right_thigh_roll_link",
       "t_weight": 1.5,
       "r_weight": 0.15
     },
