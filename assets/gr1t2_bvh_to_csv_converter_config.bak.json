@@ -1,9 +1,7 @@
 {
     "import_folder": "/home/tranvantuan/projects/cibo/data/bones_seed_sample/extracted/soma_uniform/bvh",
     "export_folder": "/home/tranvantuan/projects/cibo/data/bones_seed_sample/convert_to_csv/csv",
-    "state_folder": "/home/tranvantuan/projects/cibo/data/bones_seed_sample/convert_to_csv/state",
-    "batch_size": 32,
-    "rebuild_manifest": false,
+    "batch_size": 100,
     "retargeter": "Newton",
     "retarget_source": "soma",
     "retarget_target": "gr1t2",
