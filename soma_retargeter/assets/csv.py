@@ -89,19 +89,19 @@ GR1T2_MUJOCO_JOINT_NAMES: tuple[str, ...] = (
     "right_hip_roll_joint", "right_hip_yaw_joint", "right_hip_pitch_joint",
     "right_knee_pitch_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint",
     "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint",
-    "head_pitch_joint", "head_roll_joint", "head_yaw_joint",
     "left_shoulder_pitch_joint", "left_shoulder_roll_joint",
     "left_shoulder_yaw_joint", "left_elbow_pitch_joint",
     "left_wrist_yaw_joint", "left_wrist_roll_joint", "left_wrist_pitch_joint",
     "right_shoulder_pitch_joint", "right_shoulder_roll_joint",
     "right_shoulder_yaw_joint", "right_elbow_pitch_joint",
     "right_wrist_yaw_joint", "right_wrist_roll_joint", "right_wrist_pitch_joint",
+    "head_roll_joint", "head_pitch_joint", "head_yaw_joint",
 )
 
 
 @dataclass
 class GR1T232DOF_CSVConfig(UnitreeG129DOF_CSVConfig):
-    """Canonical GR1T2 CSV layout in verified MJCF coordinate order."""
+    """GR1T2 CSV layout matching Newton's ``joint_q[7:]`` coordinate order."""
 
     name: str = "gr1t2_32dof"
     csv_header: ClassVar[List[str]] = [
